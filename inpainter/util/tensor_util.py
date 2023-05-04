@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 
+
 # resize frames
 def resize_frames(frames, size=None):
     """
@@ -11,6 +12,7 @@ def resize_frames(frames, size=None):
         frames = np.stack(frames, 0)
 
     return frames
+
 
 # resize frames
 def resize_masks(masks, size=None):

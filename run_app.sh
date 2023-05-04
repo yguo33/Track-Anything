@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=7 python app.py --device cuda:0 --port 7860
