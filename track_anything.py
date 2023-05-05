@@ -47,7 +47,7 @@ class TrackingAnything:
         self.samcontroler = SamControler(
             self.sam_checkpoint, args.sam_model_type, args.device
         )
-        self.xmem = BaseTracker(self.xmem_checkpoint, device=args.device)
+        self.xmem = BaseTracker(self.xmem_checkpoint, device=args.device, font_size=args.font_size)
         self.baseinpainter = BaseInpainter(self.e2fgvi_checkpoint, args.device)
 
     # def inference_step(self, first_flag: bool, interact_flag: bool, image: np.ndarray,
@@ -120,6 +120,8 @@ def parse_augment():
     )
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--mask_save", default=False)
+    parser.add_argument("--checkpoints_dir", default="./checkpoints")
+    parser.add_argument("--font_size", default=30, type=int)
     args = parser.parse_args()
 
     if args.debug:

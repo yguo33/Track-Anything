@@ -24,7 +24,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 class BaseTracker:
     def __init__(
-        self, xmem_checkpoint, device, sam_model=None, model_type=None
+        self, xmem_checkpoint, device, sam_model=None, model_type=None, font_size=None
     ) -> None:
         """
         device: model device
@@ -45,6 +45,7 @@ class BaseTracker:
             ]
         )
         self.device = device
+        self.font_size = font_size
 
         # changable properties
         self.mapper = MaskMapper()
@@ -123,9 +124,9 @@ class BaseTracker:
         return final_mask, final_mask, painted_image
 
     def add_text_box(self, image, bbox, text):
-        font_path = "/cephfs/MH/project/guoyalong_model/Track-Anything/SourceHanSerifSC-Regular.otf"
+        font_path = 'resources/SourceHanSerifSC-Regular.otf'
 
-        def cv2AddChineseText(img, text, position, textColor=(0, 0, 255), textSize=30):
+        def cv2AddChineseText(img, text, position, textColor=(0, 0, 0), textSize=30):
             if isinstance(img, np.ndarray):  # 判断是否OpenCV图片类型
                 img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
             # 创建一个可以在给定图像上绘图的对象
@@ -140,7 +141,7 @@ class BaseTracker:
         # Draw the bounding box
         x1, y1, x2, y2 = bbox
         # Add the text
-        image = cv2AddChineseText(image, text, (x1 + 5, y1 - 5), textSize=30)
+        image = cv2AddChineseText(image, text, (x1 + 5, y1 - 5), textSize=self.font_size)
 
         return image
 
